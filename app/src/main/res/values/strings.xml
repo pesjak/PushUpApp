@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">PushUpApp</string>
+    <string name="string_how_far_you_want_to_go">How far you want to go?</string>
+
+
+    <string name="string_3_push_ups">100 PUSH UPS</string>
+    <string name="string_2_push_ups">50 PUSH UPS</string>
+    <string name="string_1_push_ups">25 PUSH UPS</string>
 </resources>
