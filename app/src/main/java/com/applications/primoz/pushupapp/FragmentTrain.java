@@ -46,6 +46,7 @@ public class FragmentTrain extends Fragment {
 
     int black;
 
+    int number = 0;
 
     public FragmentTrain() {
         // Required empty public constructor
@@ -102,6 +103,17 @@ public class FragmentTrain extends Fragment {
                 closeFragment();
             }
         });
+
+        rlCenter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO SHRANI PODATKE O SKLECIH ZA REKORD... VSE
+                number+=1;
+                tvSet.setText(String.valueOf(number));
+                tvCurrentToGo.setText(String.valueOf(number));
+            }
+        });
+
         return view;
     }
 

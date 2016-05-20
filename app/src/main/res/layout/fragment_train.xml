@@ -24,7 +24,6 @@
 
         <!--TODO Dynamically created TEXTVIEWS -->
         <LinearLayout
-
             android:id="@+id/llSets"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,7 +42,8 @@
         android:id="@+id/rlCenter"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/rlTop">
+        android:layout_below="@id/rlTop"
+        android:clickable="true">
 
         <TextView
             android:id="@+id/tvCurrentToGo"
@@ -66,16 +66,17 @@
             android:text="GIVE IT YOUR ALL"
             android:textSize="18sp" />
 
-        <Button
-            android:id="@+id/btnAbort"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@color/colorBackgroundAbort"
-            android:gravity="center_horizontal"
-            android:padding="18dp"
-            android:text="Abort"
-            android:textSize="18dp" />
+
     </RelativeLayout>
 
+    <Button
+        android:id="@+id/btnAbort"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorBackgroundAbort"
+        android:gravity="center_horizontal"
+        android:padding="18dp"
+        android:text="Abort"
+        android:textSize="18dp" />
 </RelativeLayout>
