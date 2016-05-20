@@ -4,12 +4,18 @@
     <color name="colorPrimaryDark">#161616</color>
     <color name="colorAccent">#e21b25</color>
 
-    <color name="colorBackground">#414141</color>
+    <color name="colorRecord">#FFF</color>
+    <color name="colorSumPush">#FFF</color>
 
-    <color name="colorBackgroundButton100">#F44336</color>
-    <color name="colorBackgroundButton50">#1976D2</color>
-    <color name="colorBackgroundButton20">#388E3C</color>
+    <color name="colorBackgroundItem">#e6414141</color>
+    <color name="colorBackground">#808080</color>
+    <color name="colorBackground3">#a0808080</color>
+
+    <color name="colorBackgroundButton100">#F44336  </color>
+    <color name="colorBackgroundButton50"> #1976D2  </color>
+    <color name="colorBackgroundButton20"> #e6388e3c</color>
 
     <color name="colorText">#FFF</color>
 
+    <color name="color_line">#5b5b5b</color>
 </resources>
