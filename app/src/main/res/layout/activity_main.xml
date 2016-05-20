@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     tools:context="com.applications.primoz.pushupapp.MainActivity">
 
+
     <ImageView
         android:id="@+id/iv_background"
         android:layout_width="match_parent"
@@ -12,6 +13,12 @@
         android:layout_alignParentBottom="true"
         android:scaleType="fitXY"
         android:src="@drawable/img_pushup" />
+
+    <View
+        android:id="@+id/viewBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorHalfBackgroundButton20"/>
 
     <TextView
         android:id="@+id/tvTitle"
@@ -29,7 +36,7 @@
         android:layout_height="78dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:background="@color/colorBackground3">
+        android:background="@color/colorBackgroundItem">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -112,7 +119,7 @@
         android:layout_marginTop="12dp" />
 
 
-    <TextView
+    <Button
         android:id="@+id/tvStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -123,14 +130,14 @@
         android:text="BEGIN TRAINING"
         android:textSize="24sp" />
 
-    <TextView
+    <Button
         android:id="@+id/tvChangeGoal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/includeSum"
         android:layout_margin="8dp"
-        android:background="@color/colorBackground3"
+        android:background="@color/colorBackgroundItem"
         android:padding="8dp"
         android:text="CHANGE GOAL"
         android:textColor="@color/colorText" />

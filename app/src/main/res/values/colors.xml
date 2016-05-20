@@ -7,13 +7,22 @@
     <color name="colorRecord">#FFF</color>
     <color name="colorSumPush">#FFF</color>
 
+    <color name="colorSets">#1e1e1e</color>
+    <color name="colorSetsCurrent">#1e1e1e</color>
+
     <color name="colorBackgroundItem">#e6414141</color>
     <color name="colorBackground">#808080</color>
     <color name="colorBackground3">#a0808080</color>
+    <color name="colorBackgroundAbort">#dc585858</color>
+    <color name="colorBackgroundSets">#a0ffffff</color>
 
-    <color name="colorBackgroundButton100">#F44336  </color>
-    <color name="colorBackgroundButton50"> #1976D2  </color>
-    <color name="colorBackgroundButton20"> #e6388e3c</color>
+    <color name="colorBackgroundButton100">#F44336</color>
+    <color name="colorBackgroundButton50">#1976D2</color>
+    <color name="colorBackgroundButton20">#388e3c</color>
+
+    <color name="colorHalfBackgroundButton100">#3cf44336</color>
+    <color name="colorHalfBackgroundButton50"> #3c1976D2</color>
+    <color name="colorHalfBackgroundButton20"> #3c388e3c</color>
 
     <color name="colorText">#FFF</color>
 

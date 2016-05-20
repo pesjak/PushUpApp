@@ -1,0 +1,103 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/rlTrain"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackgroundButton20"
+    tools:context="com.applications.primoz.pushupapp.FragmentTrain">
+
+    <RelativeLayout
+        android:id="@+id/rlTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:text="PUSH UP\nApp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="28sp" />
+
+        <!--TODO Dynamically created TEXTVIEWS -->
+        <LinearLayout
+
+            android:id="@+id/llSets"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/tvTitle"
+            android:background="@color/colorBackgroundSets"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2 - "
+                android:textColor="@color/colorSets"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2 "
+                android:textColor="@color/colorSets"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="- 2"
+                android:textColor="@color/colorSets"
+                android:textSize="24sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlCenter"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/rlTop">
+
+        <TextView
+            android:id="@+id/tvCurrentToGo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="12"
+            android:textSize="96sp"
+            android:textStyle="bold"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/tvToGo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@id/tvCurrentToGo"
+            android:layout_below="@id/tvCurrentToGo"
+            android:layout_centerHorizontal="true"
+            android:text="TO GO"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btnAbort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorBackgroundAbort"
+            android:gravity="center_horizontal"
+            android:padding="18dp"
+            android:text="Abort"
+            android:textSize="18dp" />
+    </RelativeLayout>
+
+</RelativeLayout>

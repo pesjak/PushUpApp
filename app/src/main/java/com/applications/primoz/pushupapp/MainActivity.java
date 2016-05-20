@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -15,18 +17,23 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements GoalClicked {
     SharedPreferences preferences;
+    String record;
     @Bind(R.id.iv_background)
     ImageView ivBackground;
+    @Bind(R.id.tvTitle)
+    TextView tvTitle;
+    @Bind(R.id.tvRecordName)
+    TextView tvRecordName;
+    @Bind(R.id.tvRecord)
+    TextView tvRecord;
     @Bind(R.id.tvAllPushUps)
     TextView tvAllPushUps;
     @Bind(R.id.tvAllPushUpsNumber)
     TextView tvAllPushUpsNumber;
     @Bind(R.id.tvPush)
     TextView tvPush;
-    @Bind(R.id.tvRecordName)
-    TextView tvRecordName;
-    @Bind(R.id.tvRecord)
-    TextView tvRecord;
+    @Bind(R.id.relativeLayout)
+    RelativeLayout relativeLayout;
     @Bind(R.id.tvUpcoming)
     TextView tvUpcoming;
     @Bind(R.id.tvUpcomingDay)
@@ -40,18 +47,23 @@ public class MainActivity extends AppCompatActivity implements GoalClicked {
     @Bind(R.id.tvTotalNumber)
     TextView tvTotalNumber;
     @Bind(R.id.tvStart)
-    TextView tvStart;
+    Button btnStart;
     @Bind(R.id.tvChangeGoal)
-    TextView tvChangeGoal;
-    @Bind(R.id.tvTitle)
-    TextView tvTitle;
-    @Bind(R.id.relativeLayout)
-    RelativeLayout relativeLayout;
+    Button btnChangeGoal;
+    @Bind(R.id.viewBackground)
+    View viewBackground;
 
 
     private int color20;
     private int color100;
     private int color50;
+
+    private int colorB20;
+    private int colorB100;
+    private int colorB50;
+    private int izbranabarva;
+    String tezavnost;
+    String izbira;
 
     //TODO Preveri, če je prvič prižgal App
     @Override
@@ -59,11 +71,46 @@ public class MainActivity extends AppCompatActivity implements GoalClicked {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        MyApp.setFontCapture(this, tvTitle,tvRecord, tvRecordName, tvStart, tvUpcoming, tvUpcomingDay, tvSets, tvSetsNumbers, tvTotal, tvTotalNumber, tvAllPushUps, tvAllPushUpsNumber, tvPush, tvChangeGoal);
+        MyApp.setFontCapture(this, tvTitle, tvRecord, tvRecordName, tvUpcoming, tvUpcomingDay, tvSets, tvSetsNumbers, tvTotal, tvTotalNumber, tvAllPushUps, tvAllPushUpsNumber, tvPush);
+        MyApp.setFontCapture(this, btnChangeGoal, btnStart);
         showSelectGoal();
         color100 = Color.parseColor("#F44336");
         color50 = Color.parseColor("#1976D2");
-        color20 = Color.parseColor("#e6388e3c");
+        color20 = Color.parseColor("#388e3c");
+        colorB100 = Color.parseColor("#3cf44336");
+        colorB50 = Color.parseColor("#3c1976D2");
+        colorB20 = Color.parseColor("#3c388e3c");
+
+        btnChangeGoal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Todo OPEN  FRAGMENT, change sets, total
+                showSelectGoal();
+            }
+        });
+
+        btnStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Todo Open fragment with training data
+                startTraining();
+
+            }
+        });
+
+    }
+
+    private void startTraining() {
+        Bundle bundle = new Bundle();
+        bundle.putInt("barva", izbranabarva);
+
+        FragmentTrain fragment = new FragmentTrain();
+        fragment.setArguments(bundle);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(android.R.id.content, fragment)
+                .commit();
+
     }
 
     private void showSelectGoal() {
@@ -73,33 +120,38 @@ public class MainActivity extends AppCompatActivity implements GoalClicked {
                 .beginTransaction()
                 .add(android.R.id.content, fragmentPrvic)
                 .commit();
-
     }
 
     @Override
     public void onItemClick() {
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String tezavnost = preferences.getString("tezavnost", "Ni tezavnosti");
-        String izbira = preferences.getString("izbira", "Ni izbire");
+        tezavnost = preferences.getString("tezavnost", "Ni tezavnosti");
+        izbira = preferences.getString("izbira", "Ni izbire");
         changeBackground(izbira);
 
     }
-
 
     private void changeBackground(String izbira) {
         Log.d("Selected: ", izbira);
         switch (izbira) {
             case "25":
-                tvStart.setBackgroundColor(color20);
+                btnStart.setBackgroundColor(color20);
+                viewBackground.setBackgroundColor(colorB20);
+                izbranabarva = color20;
                 break;
             case "50":
-                tvStart.setBackgroundColor(color50);
+                btnStart.setBackgroundColor(color50);
+                viewBackground.setBackgroundColor(colorB50);
+                izbranabarva = color50;
                 break;
             case "100":
-                tvStart.setBackgroundColor(color100);
+                btnStart.setBackgroundColor(color100);
+                viewBackground.setBackgroundColor(colorB100);
+                izbranabarva = color100;
                 break;
             default:
                 break;
         }
     }
+
 }

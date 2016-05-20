@@ -6,8 +6,8 @@
     <string name="string_3_push_ups">100 PUSH UPS</string>
     <string name="string_2_push_ups">50 PUSH UPS</string>
     <string name="string_1_push_ups">25 PUSH UPS</string>
-    
-  <!--WEEK 1 EASY-->
+
+    <!--WEEK 1 EASY-->
     <array name="Easy_Week_1_Day_1">
         <item>2</item>
         <item>3</item>
@@ -160,4 +160,7 @@
         <item>14</item>
         <item>50</item>
     </array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
