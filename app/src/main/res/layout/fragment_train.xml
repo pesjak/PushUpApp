@@ -1,9 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/rlTrain"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackgroundButton20"
+    android:clickable="true"
     tools:context="com.applications.primoz.pushupapp.FragmentTrain">
 
     <RelativeLayout
@@ -36,28 +36,6 @@
             android:paddingBottom="12dp"
             android:paddingTop="12dp">
 
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2 - "
-                android:textColor="@color/colorSets"
-                android:textSize="24sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2 "
-                android:textColor="@color/colorSets"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="- 2"
-                android:textColor="@color/colorSets"
-                android:textSize="24sp" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -71,21 +49,21 @@
             android:id="@+id/tvCurrentToGo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="112dp"
             android:text="12"
-            android:textSize="96sp"
-            android:textStyle="bold"
-            android:layout_centerInParent="true"
-            android:layout_centerHorizontal="true"/>
+            android:textSize="126sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvToGo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@id/tvCurrentToGo"
             android:layout_below="@id/tvCurrentToGo"
             android:layout_centerHorizontal="true"
-            android:text="TO GO"
+            android:gravity="center_horizontal"
+            android:text="GIVE IT YOUR ALL"
             android:textSize="18sp" />
 
         <Button

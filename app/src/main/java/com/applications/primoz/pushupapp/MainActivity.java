@@ -53,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements GoalClicked {
     @Bind(R.id.viewBackground)
     View viewBackground;
 
+    String[] arraySets;
+
 
     private int color20;
     private int color100;
@@ -129,6 +131,8 @@ public class MainActivity extends AppCompatActivity implements GoalClicked {
         izbira = preferences.getString("izbira", "Ni izbire");
         changeBackground(izbira);
 
+        startTraining();
+
     }
 
     private void changeBackground(String izbira) {
@@ -138,16 +142,19 @@ public class MainActivity extends AppCompatActivity implements GoalClicked {
                 btnStart.setBackgroundColor(color20);
                 viewBackground.setBackgroundColor(colorB20);
                 izbranabarva = color20;
+
                 break;
             case "50":
                 btnStart.setBackgroundColor(color50);
                 viewBackground.setBackgroundColor(colorB50);
                 izbranabarva = color50;
+
                 break;
             case "100":
                 btnStart.setBackgroundColor(color100);
                 viewBackground.setBackgroundColor(colorB100);
                 izbranabarva = color100;
+
                 break;
             default:
                 break;
