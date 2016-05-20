@@ -35,6 +35,8 @@
             android:paddingBottom="12dp"
             android:paddingTop="12dp">
 
+
+
         </LinearLayout>
     </RelativeLayout>
 
@@ -52,7 +54,7 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="112dp"
-            android:text="12"
+            android:text=""
             android:textSize="126sp"
             android:textStyle="bold" />
 

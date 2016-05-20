@@ -15,7 +15,9 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements GoalClicked {
+//TODO KOLEDAR, KI MU BO POVEDAL DA MORA TRENIRATI VSAK DRUG
+
+public class MainActivity extends AppCompatActivity implements GoalClicked, HowMany {
     SharedPreferences preferences;
     String record;
     @Bind(R.id.iv_background)
@@ -53,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements GoalClicked {
     @Bind(R.id.viewBackground)
     View viewBackground;
 
-    String[] arraySets;
+    int[] arraySets;
 
 
     private int color20;
@@ -105,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements GoalClicked {
     private void startTraining() {
         Bundle bundle = new Bundle();
         bundle.putInt("barva", izbranabarva);
+        bundle.putIntArray("sets", arraySets);
 
         FragmentTrain fragment = new FragmentTrain();
         fragment.setArguments(bundle);
@@ -116,8 +119,9 @@ public class MainActivity extends AppCompatActivity implements GoalClicked {
     }
 
     private void showSelectGoal() {
+        Bundle bundle = new Bundle();
         FragmentPrvic fragmentPrvic = new FragmentPrvic();
-        fragmentPrvic.setArguments(getIntent().getExtras());
+        fragmentPrvic.setArguments(bundle);
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(android.R.id.content, fragmentPrvic)
@@ -130,7 +134,6 @@ public class MainActivity extends AppCompatActivity implements GoalClicked {
         tezavnost = preferences.getString("tezavnost", "Ni tezavnosti");
         izbira = preferences.getString("izbira", "Ni izbire");
         changeBackground(izbira);
-
         startTraining();
 
     }
@@ -142,23 +145,52 @@ public class MainActivity extends AppCompatActivity implements GoalClicked {
                 btnStart.setBackgroundColor(color20);
                 viewBackground.setBackgroundColor(colorB20);
                 izbranabarva = color20;
-
                 break;
             case "50":
                 btnStart.setBackgroundColor(color50);
                 viewBackground.setBackgroundColor(colorB50);
                 izbranabarva = color50;
-
                 break;
             case "100":
                 btnStart.setBackgroundColor(color100);
                 viewBackground.setBackgroundColor(colorB100);
                 izbranabarva = color100;
-
                 break;
             default:
                 break;
         }
     }
 
+
+    @Override
+    public void howManyCanYouDo(int pushups) {
+        //TODO Zapomni si te sklece in jih dodaj v skupno število sklec...
+        //TODO Glede na ta rezultat, mu daj kateri set bo moral opravit
+        Log.d("PUSHUPS", pushups + "");
+
+        if (pushups <= 5) {
+            arraySets = getResources().getIntArray(R.array.Easy_Week_1_Day_1);
+        } else if (pushups > 5 && pushups < 10) {
+            arraySets = getResources().getIntArray(R.array.Easy_Week_2_Day_1);
+        } else if (pushups > 11 && pushups < 20) {
+            arraySets = getResources().getIntArray(R.array.Easy_Week_3_Day_1);
+        } else {
+            arraySets = getResources().getIntArray(R.array.Easy_Week_4_Day_1);
+        }
+        String set = "";
+        int sum = 0;
+        for (int i = 0; i < arraySets.length; i++) {
+            sum += arraySets[i];
+            String element = String.valueOf(arraySets[i]);
+            if (i != arraySets.length - 1) {
+                set += element + " - ";
+            } else {
+                set += element + "+";
+            }
+
+        }
+        Log.d("STRING", set);
+        tvSetsNumbers.setText(set);
+        tvTotalNumber.setText(sum + " PUSH UPS");
+    }
 }
