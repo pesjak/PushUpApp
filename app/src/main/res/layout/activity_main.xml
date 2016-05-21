@@ -18,7 +18,7 @@
         android:id="@+id/viewBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorHalfBackgroundButton20"/>
+        android:background="@color/colorHalfBackgroundButton20" />
 
     <TextView
         android:id="@+id/tvTitle"
@@ -41,11 +41,11 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="end"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentStart="true">
+            android:gravity="end">
 
             <TextView
                 android:id="@+id/tvRecordName"
@@ -72,13 +72,15 @@
             android:id="@+id/relativeLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true">
+            android:padding="12dp">
 
             <TextView
                 android:id="@+id/tvAllPushUps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:text="You did: "
                 android:textColor="@color/colorRecord"
                 android:textSize="12sp" />
@@ -87,19 +89,19 @@
                 android:id="@+id/tvAllPushUpsNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_margin="12dp"
-                android:text="5867"
+                android:text="0"
                 android:textColor="@color/colorRecord"
-                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvPush"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_below="@id/tvAllPushUpsNumber"
+                android:layout_centerHorizontal="true"
                 android:text="Push Ups"
                 android:textColor="@color/colorRecord"
                 android:textSize="12sp" />

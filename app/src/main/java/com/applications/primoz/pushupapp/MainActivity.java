@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 
 //TODO KOLEDAR, KI MU BO POVEDAL DA MORA TRENIRATI VSAK DRUG
 
-public class MainActivity extends AppCompatActivity implements GoalClicked, HowMany {
+public class MainActivity extends AppCompatActivity implements GoalClicked, HowMany, PushUps {
     SharedPreferences preferences;
     String record;
     @Bind(R.id.iv_background)
@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements GoalClicked, HowM
     private int izbranabarva;
     String tezavnost;
     String izbira;
+    private int allpushups;
 
     //TODO Preveri, če je prvič prižgal App
     @Override
@@ -102,6 +103,21 @@ public class MainActivity extends AppCompatActivity implements GoalClicked, HowM
             }
         });
 
+    }
+
+    private void setTotalPushUps(){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        allpushups = preferences.getInt("allpushups",0);
+        Log.d("ALL PUSHUPS",allpushups+"");
+        if(tvAllPushUpsNumber != null){
+            tvAllPushUpsNumber.setText(allpushups+"");
+        }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        setTotalPushUps();
     }
 
     private void startTraining() {
@@ -192,5 +208,10 @@ public class MainActivity extends AppCompatActivity implements GoalClicked, HowM
         Log.d("STRING", set);
         tvSetsNumbers.setText(set);
         tvTotalNumber.setText(sum + " PUSH UPS");
+    }
+
+    @Override
+    public void SavePushups() {
+        setTotalPushUps();
     }
 }

@@ -3,9 +3,11 @@ package com.applications.primoz.pushupapp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -59,8 +61,11 @@ public class FragmentTrain extends Fragment {
     boolean timerRunning = false;
     int currentSet = 0;
 
+    boolean prvic = false;
+
     Activity activityMain;
     HowMany howMany;
+    PushUps pushUps;
     CountDownTimer timer;
 
     public FragmentTrain() {
@@ -76,6 +81,7 @@ public class FragmentTrain extends Fragment {
         context = getContext();
         activityMain = getActivity();
         howMany = (HowMany) activityMain;
+        pushUps = (PushUps) activityMain;
         MyApp.setFontCapture(context, tvTitle, tvCurrentToGo, tvToGo);
         MyApp.setFontCapture(context, btnAbort);
         black = Color.parseColor("#1e1e1e");
@@ -83,11 +89,13 @@ public class FragmentTrain extends Fragment {
                 LinearLayout.LayoutParams.WRAP_CONTENT);
         int color = getArguments().getInt("barva");
         rlTrain.setBackgroundColor(color);
-
-
         hashMapSets = new HashMap<>();
 
-        if (getArguments().getIntArray("sets") == null) {
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+
+        prvic = preferences.getBoolean("PRVIC", false);
+
+        if (prvic) {
             /*
             *
 
@@ -110,7 +118,9 @@ public class FragmentTrain extends Fragment {
             tvCurrentToGo.setText("0");
             tvToGo.setText("Give everything you got");
             btnAbort.setText("THAT IS IT FOR ME");
-
+            SharedPreferences.Editor editor =preferences.edit();
+            editor.putBoolean("PRVIC", false);
+            editor.apply();
         } else {
             sets = getArguments().getIntArray("sets");
             String all = "";
@@ -138,14 +148,24 @@ public class FragmentTrain extends Fragment {
 
             number = hashMapSets.get(0);
         }
+
+
+
         btnAbort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 howMany.howManyCanYouDo(number);
+                int prevscore = preferences.getInt("allpushups",0);
+                SharedPreferences.Editor editor = preferences.edit();
+                Log.d("ALL",numberinSession+"");
+                editor.putInt("allpushups", numberinSession+prevscore);
+                editor.commit();
+
                 if (timerRunning) {
                     timerRunning = false;
                     timer.cancel();
                 }
+                pushUps.SavePushups();
                 closeFragment();
             }
         });
@@ -153,16 +173,13 @@ public class FragmentTrain extends Fragment {
         rlCenter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                numberinSession += 1;
                 //TODO SHRANI PODATKE O SKLECIH ZA REKORD... VSE
-
                 if (timerRunning) {
                     timer.cancel();
                     timer.onFinish();
-                    timeout(5);
                 } else if (sets != null && sets.length > 1) {
+                    numberinSession+=1;
                     number -= 1;
-
                     if (currentSet >= hashMapSets.size() - 1) {
                         if (number <= 0) {
                             putRepinSet();
@@ -174,7 +191,7 @@ public class FragmentTrain extends Fragment {
                         }
 
                     } else if (number <= 0) {
-                        timeout(60);
+                        timeout(10);
                     }
 
                     tvCurrentToGo.setText(String.valueOf(number));
@@ -183,6 +200,7 @@ public class FragmentTrain extends Fragment {
                         number += 2;
                     }
                 } else {
+                    numberinSession+=1;
                     number += 1;
                     tvSet.setText(String.valueOf(number));
                     tvCurrentToGo.setText(String.valueOf(number));
