@@ -5,6 +5,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
@@ -28,7 +32,10 @@ import butterknife.ButterKnife;
 
 //TODO NAJ TA REZULTAT NE VPLIVA NA SETE
 
-public class FragmentTrain extends Fragment {
+public class FragmentTrain extends Fragment implements SensorEventListener {
+
+    private SensorManager mSensorManager;
+    private Sensor mSensor;
 
 
     Context context;
@@ -63,7 +70,7 @@ public class FragmentTrain extends Fragment {
     int currentSet = 0;
 
     boolean prvic = false;
-
+    boolean sklec = false;
     Activity activityMain;
     HowMany howMany;
     PushUps pushUps;
@@ -75,6 +82,12 @@ public class FragmentTrain extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -82,7 +95,11 @@ public class FragmentTrain extends Fragment {
         ButterKnife.bind(this, view);
         context = getContext();
         activityMain = getActivity();
+        mSensorManager = (SensorManager) activityMain.getSystemService(Context.SENSOR_SERVICE);
+        mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         howMany = (HowMany) activityMain;
+
+
         pushUps = (PushUps) activityMain;
         MyApp.setFontCapture(context, tvTitle, tvCurrentToGo, tvToGo);
         MyApp.setFontCapture(context, btnAbort);
@@ -158,42 +175,14 @@ public class FragmentTrain extends Fragment {
         rlCenter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO SHRANI PODATKE O SKLECIH ZA REKORD... VSE
+                sklec = true;
                 if (timerRunning) {
                     timer.cancel();
                     timer.onFinish();
-                } else if (sets != null && sets.length > 1) {
-                    numberinSession += 1;
-                    number -= 1;
-                    if (currentSet >= hashMapSets.size() - 1) {
-                        if (number <= 0) {
-                            putRepinSet();
-                            tvToGo.setText("Give everything you got");
-                            btnAbort.setText("COMPLETED");
-                            lastset = true;
-                            number = hashMapSets.get(hashMapSets.size() - 1);
-                            tvCurrentToGo.setText(number + "");
-                        }
-
-                    } else if (number <= 0) {
-                        timeout(60);
-                    }
-
-                    tvCurrentToGo.setText(String.valueOf(number));
-                    if (lastset) {
-                        tvCurrentToGo.setText(number + "");
-                        number += 2;
-                    }
-
-                    checkRecord();
-
                 } else {
-                    numberinSession += 1;
-                    number += 1;
-                    checkRecord();
-                    tvSet.setText(String.valueOf(number));
-                    tvCurrentToGo.setText(String.valueOf(number));
+                    pushupDo();
                 }
+                sklec = false;
             }
         });
 
@@ -271,5 +260,54 @@ public class FragmentTrain extends Fragment {
         ft.commit();
     }
 
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        Log.d("EVENT", event.values[0] + "");
+
+        if (event.values[0] < 1.0 && !sklec && !timerRunning) {
+            pushupDo();
+        }
+    }
+
+    private void pushupDo() {
+        if (sets != null && sets.length > 1) {
+            numberinSession += 1;
+            number -= 1;
+            if (currentSet >= hashMapSets.size() - 1) {
+                if (number <= 0) {
+                    putRepinSet();
+                    tvToGo.setText("Give everything you got");
+                    btnAbort.setText("COMPLETED");
+                    lastset = true;
+                    number = hashMapSets.get(hashMapSets.size() - 1);
+                    tvCurrentToGo.setText(number + "");
+                }
+
+            } else if (number <= 0) {
+                timeout(60);
+            }
+            if (tvCurrentToGo != null) {
+                tvCurrentToGo.setText(String.valueOf(number));
+            }
+            if (lastset) {
+                tvCurrentToGo.setText(number + "");
+                number += 2;
+            }
+
+            checkRecord();
+
+        } else {
+            numberinSession += 1;
+            number += 1;
+            checkRecord();
+            tvSet.setText(String.valueOf(number));
+            tvCurrentToGo.setText(String.valueOf(number));
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    }
 
 }

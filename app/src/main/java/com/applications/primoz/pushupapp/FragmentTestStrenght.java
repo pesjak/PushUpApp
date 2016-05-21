@@ -4,6 +4,10 @@ package com.applications.primoz.pushupapp;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -29,8 +33,10 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentTestStrenght extends Fragment {
+public class FragmentTestStrenght extends Fragment implements SensorEventListener {
 
+    private SensorManager mSensorManager;
+    private Sensor mSensor;
 
     @Bind(R.id.tvTitle)
     TextView tvTitle;
@@ -62,10 +68,17 @@ public class FragmentTestStrenght extends Fragment {
     private int orange;
     private int goal;
 
+    boolean sklec = false;
+
     public FragmentTestStrenght() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,6 +89,10 @@ public class FragmentTestStrenght extends Fragment {
 
         context = getContext();
         activityMain = getActivity();
+        mSensorManager = (SensorManager) activityMain.getSystemService(Context.SENSOR_SERVICE);
+        mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+
+
         howMany = (HowMany) activityMain;
         pushUps = (PushUps) activityMain;
         MyApp.setFontCapture(context, tvTitle, tvCurrentToGo, tvToGo, tvTestStrenghtSet);
@@ -117,13 +134,10 @@ public class FragmentTestStrenght extends Fragment {
         rlCenter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                numberinSession += 1;
-                Log.d("Number", numberinSession + "");
-                if (record <= numberinSession) {
-                    tvTestStrenghtSet.setText("YOUR RECORD: " + record);
-                }
-                tvCurrentToGo.setText(String.valueOf(numberinSession));
-                checkRecord();
+                sklec = true;
+                pushupDo();
+                sklec = false;
+
 
             }
         });
@@ -156,5 +170,30 @@ public class FragmentTestStrenght extends Fragment {
         ft.remove(this);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
         ft.commit();
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        Log.d("EVENT", event.values[0] + "");
+
+        if (event.values[0] < 1.0 && !sklec) {
+            pushupDo();
+        }
+    }
+
+    private void pushupDo() {
+        numberinSession += 1;
+        Log.d("Number", numberinSession + "");
+        if (record <= numberinSession) {
+            tvTestStrenghtSet.setText("YOUR RECORD: " + record);
+        }
+        tvCurrentToGo.setText(String.valueOf(numberinSession));
+        checkRecord();
+
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
     }
 }

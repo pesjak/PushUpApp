@@ -160,6 +160,8 @@ public class MainActivity extends AppCompatActivity implements GoalClicked, HowM
                 .title("Changing your goal?")
                 .content("Your can change your goal, but your sets will depend of your test that you will have to do again. Choose wisely.")
                 .positiveText("Yes I AM AWARE")
+                .positiveColor(izbranabarva)
+                .negativeColor(izbranabarva)
                 .negativeText("Cancel")
                 .onAny(new MaterialDialog.SingleButtonCallback(){
                     @Override

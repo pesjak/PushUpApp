@@ -7,6 +7,15 @@
     <string name="string_2_push_ups">50 PUSH UPS</string>
     <string name="string_1_push_ups">25 PUSH UPS</string>
 
+    <array name="Tips">
+        <item>Breathe IN through your NOSE as when going DOWN, then OUT through MOUTH way UP.</item>
+        <item>Keep your body stiff and straight as a plank</item>
+        <item>Take about 2 seconds to lower, than about 1 second to push up.</item>
+        <item> It’s not a race; feel the exercise and stay stiff with high tension.</item>
+        <item>Hand position...your thumbs are facing each other, open your fingers and grip the floor. </item>
+        <item>Instead of pushing yourself off the ground, think of pushing the floor away from you. </item>
+    </array>
+
     <!--WEEK 1 EASY-->
     <array name="Easy_Week_1_Day_1">
         <item>2</item>
