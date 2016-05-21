@@ -56,6 +56,7 @@ public class FragmentTrain extends Fragment {
     int number = 0;
     int numberinSession = 0;
     boolean lastset = false;
+    boolean timerRunning = false;
     int currentSet = 0;
 
     Activity activityMain;
@@ -141,7 +142,8 @@ public class FragmentTrain extends Fragment {
             @Override
             public void onClick(View v) {
                 howMany.howManyCanYouDo(number);
-                if (timer != null) {
+                if (timerRunning) {
+                    timerRunning = false;
                     timer.cancel();
                 }
                 closeFragment();
@@ -154,10 +156,10 @@ public class FragmentTrain extends Fragment {
                 numberinSession += 1;
                 //TODO SHRANI PODATKE O SKLECIH ZA REKORD... VSE
 
-                if (timer != null) {
+                if (timerRunning) {
                     timer.cancel();
                     timer.onFinish();
-                    timer = null;
+                    timeout(5);
                 } else if (sets != null && sets.length > 1) {
                     number -= 1;
 
@@ -172,7 +174,7 @@ public class FragmentTrain extends Fragment {
                         }
 
                     } else if (number <= 0) {
-                        timeout();
+                        timeout(60);
                     }
 
                     tvCurrentToGo.setText(String.valueOf(number));
@@ -191,18 +193,29 @@ public class FragmentTrain extends Fragment {
         return view;
     }
 
-    private void timeout() {
-        timer = new CountDownTimer(60000, 1000) {
+    private void timeout(int s) {
+        timer = new CountDownTimer(s * 1005, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
+                timerRunning = true;
+
+                if (millisUntilFinished <= 6000) {
+                    rlCenter.setClickable(false);
+                    tvToGo.setText("Get Ready");
+                }else{
+                    tvToGo.setText("REST NOW, press again to skip");
+                }
+
                 if (tvCurrentToGo != null) {
                     tvCurrentToGo.setText(millisUntilFinished / 1000 + "");
-                    tvToGo.setText("REST NOW, press again to skip");
                 }
             }
 
             @Override
             public void onFinish() {
+                timerRunning = false;
+                tvCurrentToGo.setText("" + 0);
+                rlCenter.setClickable(true);
                 currentSet += 1;
                 putRepinSet();
                 if (tvToGo != null) {
