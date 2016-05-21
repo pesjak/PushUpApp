@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/tvRecordName"
                 android:layout_toEndOf="@+id/tvRecordName"
-                android:text="0"
+                android:text="34"
                 android:textColor="@color/colorSumPush"
                 android:textSize="36sp"
                 android:textStyle="bold" />

@@ -18,7 +18,6 @@ import butterknife.ButterKnife;
 //TODO KOLEDAR, KI MU BO POVEDAL DA MORA TRENIRATI VSAK DRUG
 
 public class MainActivity extends AppCompatActivity implements GoalClicked, HowMany, PushUps {
-    SharedPreferences preferences;
     @Bind(R.id.iv_background)
     ImageView ivBackground;
     @Bind(R.id.tvTitle)
@@ -37,8 +36,6 @@ public class MainActivity extends AppCompatActivity implements GoalClicked, HowM
     RelativeLayout relativeLayout;
     @Bind(R.id.tvUpcoming)
     TextView tvUpcoming;
-    @Bind(R.id.tvUpcomingDay)
-    TextView tvUpcomingDay;
     @Bind(R.id.tvSets)
     TextView tvSets;
     @Bind(R.id.tvSetsNumbers)
@@ -71,21 +68,46 @@ public class MainActivity extends AppCompatActivity implements GoalClicked, HowM
     private int allpushups;
     private int record;
 
+    private boolean firstTimer = true;
+
     //TODO Preveri, če je prvič prižgal App
+    //TODO KO KONČA SET GA ZAMENJAJ Z NASLENDJIM, KI JE PRIMEREN TEJ STOPNJI
+    //TODO PO VSAKMU TEDNU IMA TEST, kjer lahko vidi če je dosegel tisto kvoto
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        MyApp.setFontCapture(this, tvTitle, tvRecord, tvRecordName, tvUpcoming, tvUpcomingDay, tvSets, tvSetsNumbers, tvTotal, tvTotalNumber, tvAllPushUps, tvAllPushUpsNumber, tvPush);
+        MyApp.setFontCapture(this, tvTitle, tvRecord, tvRecordName, tvUpcoming, tvSets, tvSetsNumbers, tvTotal, tvTotalNumber, tvAllPushUps, tvAllPushUpsNumber, tvPush);
         MyApp.setFontCapture(this, btnChangeGoal, btnStart);
-        showSelectGoal();
         color100 = Color.parseColor("#F44336");
         color50 = Color.parseColor("#1976D2");
         color20 = Color.parseColor("#388e3c");
         colorB100 = Color.parseColor("#3cf44336");
         colorB50 = Color.parseColor("#3c1976D2");
         colorB20 = Color.parseColor("#3c388e3c");
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        firstTimer = preferences.getBoolean("firstTimer", true);
+
+        if (firstTimer) {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("firstTimer", false);
+            editor.apply();
+            firstTimer = false;
+            showSelectGoal();
+        }else {
+            izbira = preferences.getString("izbira", "Ni izbire");
+            tezavnost = preferences.getString("tezavnost","Ni tezavnosti");
+            Log.d("Izbira", izbira);
+            Log.d("Tezavnost", tezavnost);
+            changeBackground(izbira);
+        }
+
+        setTotalPushUps();
+        setRecord();
+
+
 
         btnChangeGoal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,21 +128,21 @@ public class MainActivity extends AppCompatActivity implements GoalClicked, HowM
 
     }
 
-    private void setTotalPushUps(){
+    private void setTotalPushUps() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        allpushups = preferences.getInt("allpushups",0);
-     //   Log.d("ALL PUSHUPS",allpushups+"");
-        if(tvAllPushUpsNumber != null){
-            tvAllPushUpsNumber.setText(allpushups+"");
+        allpushups = preferences.getInt("allpushups", 0);
+        //   Log.d("ALL PUSHUPS",allpushups+"");
+        if (tvAllPushUpsNumber != null) {
+            tvAllPushUpsNumber.setText(allpushups + "");
         }
     }
 
-    private void setRecord(){
+    private void setRecord() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        record = preferences.getInt("record",0);
-        Log.d("RECORD",record+"");
-        if(tvRecord != null){
-            tvRecord.setText(record+"");
+        record = preferences.getInt("record", 0);
+        Log.d("RECORD", record + "");
+        if (tvRecord != null) {
+            tvRecord.setText(record + "");
         }
     }
 
@@ -145,6 +167,16 @@ public class MainActivity extends AppCompatActivity implements GoalClicked, HowM
 
     }
 
+    private void startTestStrenght() {
+        Bundle bundle = new Bundle();
+        FragmentTestStrenght fragmentTestStrenght = new FragmentTestStrenght();
+        fragmentTestStrenght.setArguments(bundle);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(android.R.id.content, fragmentTestStrenght)
+                .commit();
+    }
+
     private void showSelectGoal() {
         Bundle bundle = new Bundle();
         FragmentPrvic fragmentPrvic = new FragmentPrvic();
@@ -157,35 +189,49 @@ public class MainActivity extends AppCompatActivity implements GoalClicked, HowM
 
     @Override
     public void onItemClick() {
-        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         tezavnost = preferences.getString("tezavnost", "Ni tezavnosti");
         izbira = preferences.getString("izbira", "Ni izbire");
         changeBackground(izbira);
-        startTraining();
+        //startTraining();
+        startTestStrenght();
 
     }
 
     private void changeBackground(String izbira) {
-        Log.d("Selected: ", izbira);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
         switch (izbira) {
             case "25":
                 btnStart.setBackgroundColor(color20);
                 viewBackground.setBackgroundColor(colorB20);
+                tvUpcoming.setTextColor(color20);
                 izbranabarva = color20;
+                editor.putString("izbira","25");
+                editor.apply();
+
                 break;
             case "50":
                 btnStart.setBackgroundColor(color50);
                 viewBackground.setBackgroundColor(colorB50);
+                tvUpcoming.setTextColor(color50);
                 izbranabarva = color50;
+                editor.putString("izbira","50");
+                editor.apply();
                 break;
             case "100":
                 btnStart.setBackgroundColor(color100);
                 viewBackground.setBackgroundColor(colorB100);
+                tvUpcoming.setTextColor(color100);
                 izbranabarva = color100;
+                editor.putString("izbira","100");
+                editor.apply();
                 break;
             default:
                 break;
         }
+        tvUpcoming.setText("YOUR GOAL IS: " + izbira + " PUSHUPS");
+
     }
 
 
@@ -230,4 +276,5 @@ public class MainActivity extends AppCompatActivity implements GoalClicked, HowM
     public void SaveRecord() {
         setRecord();
     }
+
 }

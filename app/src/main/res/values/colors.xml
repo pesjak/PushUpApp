@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#1c1c1c</color>
     <color name="colorPrimaryDark">#161616</color>
-    <color name="colorAccent">#e21b25</color>
+    <color name="colorAccent">#e2611b</color>
 
     <color name="colorRecord">#FFF</color>
     <color name="colorSumPush">#FFF</color>
@@ -12,7 +12,7 @@
 
     <color name="colorBackgroundItem">#e6414141</color>
     <color name="colorBackground">#808080</color>
-    <color name="colorBackground3">#a0808080</color>
+    <color name="colorBackground3">#c8808080</color>
     <color name="colorBackgroundAbort">#dc585858</color>
     <color name="colorBackgroundSets">#a0ffffff</color>
 

@@ -96,33 +96,7 @@ public class FragmentTrain extends Fragment {
         record = preferences.getInt("record", 0 );
         prvic = preferences.getBoolean("PRVIC", false);
 
-        if (prvic) {
-            /*
-            *
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2 - "
-                android:textColor="@color/colorSets"
-                android:textSize="24sp" />
-
-            *
-            * */
-            tvSet = new TextView(context);
-            tvSet.setText("0");
-            tvSet.setTextSize(24);
-            tvSet.setTextColor(black);
-            tvSet.setLayoutParams(layoutParams);
-            MyApp.setFontCapture(context, tvSet);
-            llSets.addView(tvSet);
-            tvCurrentToGo.setText("0");
-            tvToGo.setText("Give everything you got");
-            btnAbort.setText("THAT IS IT FOR ME");
-            SharedPreferences.Editor editor =preferences.edit();
-            editor.putBoolean("PRVIC", false);
-            editor.apply();
-        } else {
             sets = getArguments().getIntArray("sets");
             String all = "";
             tvSet = new TextView(context);
@@ -148,7 +122,7 @@ public class FragmentTrain extends Fragment {
             putRepinSet();
 
             number = hashMapSets.get(0);
-        }
+
 
 
 

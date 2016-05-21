@@ -3,6 +3,7 @@
     android:id="@+id/rlTrain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorAccent"
     android:clickable="true"
     tools:context="com.applications.primoz.pushupapp.FragmentTrain">
 
@@ -22,7 +23,6 @@
             android:textColor="@color/colorPrimary"
             android:textSize="28sp" />
 
-        <!--TODO Dynamically created TEXTVIEWS -->
         <LinearLayout
             android:id="@+id/llSets"
             android:layout_width="match_parent"
@@ -34,6 +34,14 @@
             android:orientation="horizontal"
             android:paddingBottom="12dp"
             android:paddingTop="12dp">
+
+            <TextView
+                android:id="@+id/tvTestStrenghtSet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RECORD: 0"
+                android:textColor="@color/colorSets"
+                android:textSize="24sp" />
 
 
 
@@ -54,7 +62,7 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="112dp"
-            android:text=""
+            android:text="0"
             android:textSize="126sp"
             android:textStyle="bold" />
 
@@ -65,7 +73,7 @@
             android:layout_below="@id/tvCurrentToGo"
             android:layout_centerHorizontal="true"
             android:gravity="center_horizontal"
-            android:text="Give everything you got"
+            android:text="GIVE IT YOUR ALL"
             android:textSize="18sp" />
 
 
@@ -79,6 +87,6 @@
         android:background="@color/colorBackgroundAbort"
         android:gravity="center_horizontal"
         android:padding="18dp"
-        android:text="Abort"
+        android:text="THAT IS IT FOR ME"
         android:textSize="18dp" />
 </RelativeLayout>

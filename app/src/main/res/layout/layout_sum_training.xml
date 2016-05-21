@@ -8,20 +8,21 @@
     <TextView
         android:id="@+id/tvUpcoming"
         android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:padding="4dp"
-        android:text="Upcoming"
+        android:text="YOUR GOAL IS: 25"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/tvUpcomingDay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="8dp"
-        android:padding="4dp"
-        android:text="Tomorrow" />
+    <!--    <TextView
+            android:id="@+id/tvUpcomingDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="8dp"
+            android:padding="4dp"
+            android:text="Tomorrow" />-->
 
     <TextView
         android:id="@+id/tvSets"
@@ -44,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_below="@id/tvUpcomingDay"
+        android:layout_below="@id/tvUpcoming"
         android:layout_margin="8dp"
         android:padding="4dp"
         android:text="30 - 20 - 15 - 25 - 40" />
