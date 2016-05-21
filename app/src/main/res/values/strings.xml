@@ -7,167 +7,158 @@
     <string name="string_2_push_ups">50 PUSH UPS</string>
     <string name="string_1_push_ups">25 PUSH UPS</string>
 
+    <!--WEEK 1 EASY-->
+    <array name="Easy_Week_1_Day_1">
+        <item>2</item>
+        <item>3</item>
+        <item>2</item>
+        <item>2</item>
+        <item>3</item>
+    </array>
+    <array name="Easy_Week_1_Day_2">
+        <item>3</item>
+        <item>4</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </array>
+    <array name="Easy_Week_1_Day_3">
+        <item>4</item>
+        <item>5</item>
+        <item>4</item>
+        <item>4</item>
+        <item>5</item>
+    </array>
 
-    <array name="Easy">
-        <!--WEEK 1 EASY-->
-        <array name="Week1">
-            <array name="Easy_Week_1_Day_1">
-                <item>2</item>
-                <item>3</item>
-                <item>2</item>
-                <item>2</item>
-                <item>3</item>
-            </array>
-            <array name="Easy_Week_1_Day_2">
-                <item>3</item>
-                <item>4</item>
-                <item>2</item>
-                <item>3</item>
-                <item>4</item>
-            </array>
-            <array name="Easy_Week_1_Day_3">
-                <item>4</item>
-                <item>5</item>
-                <item>4</item>
-                <item>4</item>
-                <item>5</item>
-            </array>
-        </array>
-        <!--WEEK 2 EASY-->
-        <array name="Week2">
-            <array name="Easy_Week_2_Day_1">
-                <item>4</item>
-                <item>6</item>
-                <item>4</item>
-                <item>4</item>
-                <item>6</item>
-            </array>
-            <array name="Easy_Week_2_Day_2">
-                <item>5</item>
-                <item>6</item>
-                <item>4</item>
-                <item>4</item>
-                <item>7</item>
-            </array>
-            <array name="Easy_Week_2_Day_3">
-                <item>5</item>
-                <item>7</item>
-                <item>5</item>
-                <item>5</item>
-                <item>8</item>
-            </array>
-        </array>
-        <!--WEEK 3 EASY-->
-        <array name="Week3">
-            <array name="Easy_Week_3_Day_1">
-                <item>10</item>
-                <item>12</item>
-                <item>7</item>
-                <item>7</item>
-                <item>9</item>
-            </array>
-            <array name="Easy_Week_3_Day_2">
-                <item>10</item>
-                <item>12</item>
-                <item>8</item>
-                <item>8</item>
-                <item>12</item>
-            </array>
-            <array name="Easy_Week_3_Day_3">
-                <item>11</item>
-                <item>13</item>
-                <item>9</item>
-                <item>9</item>
-                <item>13</item>
-            </array>
-        </array>
-        <!--WEEK 4 EASY-->
-        <array name="Week4">
-            <array name="Easy_Week_4_Day_1">
-                <item>12</item>
-                <item>14</item>
-                <item>11</item>
-                <item>10</item>
-                <item>16</item>
-            </array>
-            <array name="Easy_Week_4_Day_2">
-                <item>14</item>
-                <item>16</item>
-                <item>12</item>
-                <item>12</item>
-                <item>18</item>
-            </array>
-            <array name="Easy_Week_4_Day_3">
-                <item>16</item>
-                <item>18</item>
-                <item>13</item>
-                <item>13</item>
-                <item>20</item>
-            </array>
-        </array>
-        <!--WEEK 5 EASY-->
-        <array name="Week5">
 
-            <array name="Easy_Week_5_Day_1">
-                <item>17</item>
-                <item>19</item>
-                <item>15</item>
-                <item>15</item>
-                <item>20</item>
-            </array>
-            <array name="Easy_Week_5_Day_2">
-                <item>10</item>
-                <item>10</item>
-                <item>13</item>
-                <item>13</item>
-                <item>10</item>
-                <item>10</item>
-                <item>9</item>
-                <item>25</item>
-            </array>
-            <array name="Easy_Week_5_Day_3">
-                <item>13</item>
-                <item>13</item>
-                <item>15</item>
-                <item>15</item>
-                <item>12</item>
-                <item>12</item>
-                <item>10</item>
-                <item>30</item>
-            </array>
-        </array>
-        <!--WEEK 6 EASY-->
-        <array name="Week6">
-            <array name="Easy_Week_6_Day_1">
-                <item>25</item>
-                <item>30</item>
-                <item>20</item>
-                <item>15</item>
-                <item>40</item>
-            </array>
-            <array name="Easy_Week_6_Day_2">
-                <item>14</item>
-                <item>14</item>
-                <item>15</item>
-                <item>15</item>
-                <item>14</item>
-                <item>14</item>
-                <item>10</item>
-                <item>10</item>
-                <item>44</item>
-            </array>
-            <array name="Easy_Week_6_Day_3">
-                <item>13</item>
-                <item>13</item>
-                <item>17</item>
-                <item>17</item>
-                <item>16</item>
-                <item>16</item>
-                <item>14</item>
-                <item>14</item>
-                <item>50</item>
-            </array>
-        </array>
+    <!--WEEK 2 EASY-->
+    <array name="Easy_Week_2_Day_1">
+        <item>4</item>
+        <item>6</item>
+        <item>4</item>
+        <item>4</item>
+        <item>6</item>
+    </array>
+    <array name="Easy_Week_2_Day_2">
+        <item>5</item>
+        <item>6</item>
+        <item>4</item>
+        <item>4</item>
+        <item>7</item>
+    </array>
+    <array name="Easy_Week_2_Day_3">
+        <item>5</item>
+        <item>7</item>
+        <item>5</item>
+        <item>5</item>
+        <item>8</item>
+    </array>
+
+    <!--WEEK 3 EASY-->
+    <array name="Easy_Week_3_Day_1">
+        <item>10</item>
+        <item>12</item>
+        <item>7</item>
+        <item>7</item>
+        <item>9</item>
+    </array>
+    <array name="Easy_Week_3_Day_2">
+        <item>10</item>
+        <item>12</item>
+        <item>8</item>
+        <item>8</item>
+        <item>12</item>
+    </array>
+    <array name="Easy_Week_3_Day_3">
+        <item>11</item>
+        <item>13</item>
+        <item>9</item>
+        <item>9</item>
+        <item>13</item>
+    </array>
+
+    <!--WEEK 4 EASY-->
+    <array name="Easy_Week_4_Day_1">
+        <item>12</item>
+        <item>14</item>
+        <item>11</item>
+        <item>10</item>
+        <item>16</item>
+    </array>
+    <array name="Easy_Week_4_Day_2">
+        <item>14</item>
+        <item>16</item>
+        <item>12</item>
+        <item>12</item>
+        <item>18</item>
+    </array>
+    <array name="Easy_Week_4_Day_3">
+        <item>16</item>
+        <item>18</item>
+        <item>13</item>
+        <item>13</item>
+        <item>20</item>
+    </array>
+
+    <!--WEEK 5 EASY-->
+    <array name="Easy_Week_5_Day_1">
+        <item>17</item>
+        <item>19</item>
+        <item>15</item>
+        <item>15</item>
+        <item>200</item>
+    </array>
+    <array name="Easy_Week_5_Day_2">
+        <item>10</item>
+        <item>10</item>
+        <item>13</item>
+        <item>13</item>
+        <item>10</item>
+        <item>10</item>
+        <item>9</item>
+        <item>25</item>
+    </array>
+    <array name="Easy_Week_5_Day_3">
+        <item>13</item>
+        <item>13</item>
+        <item>15</item>
+        <item>15</item>
+        <item>12</item>
+        <item>12</item>
+        <item>10</item>
+        <item>30</item>
+    </array>
+
+
+    <!--WEEK 6 EASY-->
+    <array name="Easy_Week_6_Day_1">
+        <item>25</item>
+        <item>30</item>
+        <item>20</item>
+        <item>15</item>
+        <item>40</item>
+    </array>
+    <array name="Easy_Week_6_Day_2">
+        <item>14</item>
+        <item>14</item>
+        <item>15</item>
+        <item>15</item>
+        <item>14</item>
+        <item>14</item>
+        <item>10</item>
+        <item>10</item>
+        <item>44</item>
+    </array>
+    <array name="Easy_Week_6_Day_3">
+        <item>13</item>
+        <item>13</item>
+        <item>17</item>
+        <item>17</item>
+        <item>16</item>
+        <item>16</item>
+        <item>14</item>
+        <item>14</item>
+        <item>50</item>
     </array>
 
     <!--WEEK 1 MEDIUM-->

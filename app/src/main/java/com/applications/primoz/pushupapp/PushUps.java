@@ -5,5 +5,10 @@ package com.applications.primoz.pushupapp;
  */
 public interface PushUps {
     public void SavePushups();
+
     public void SaveRecord();
+
+    public void ChangeSet();
+
+    public void CheckGoal(int number);
 }

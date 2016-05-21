@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 
@@ -59,6 +60,7 @@ public class FragmentTestStrenght extends Fragment {
     private int number;
     private int numberinSession;
     private int orange;
+    private int goal;
 
     public FragmentTestStrenght() {
         // Required empty public constructor
@@ -84,7 +86,8 @@ public class FragmentTestStrenght extends Fragment {
 
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         record = preferences.getInt("record", 0);
-        Log.d("Record", record + "");
+        //Log.d("Record", record + "");
+        goal = preferences.getInt("izbira", 25);
         tvTestStrenghtSet.setText("YOUR RECORD: " + String.valueOf(record));
         prvic = preferences.getBoolean("PRVIC", false);
 
@@ -92,14 +95,21 @@ public class FragmentTestStrenght extends Fragment {
         btnAbort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                howMany.howManyCanYouDo(number);
+                howMany.howManyCanYouDo(numberinSession);
                 int prevscore = preferences.getInt("allpushups", 0);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putInt("allpushups", numberinSession + prevscore);
                 editor.apply();
+                if (numberinSession > goal) {
+                    Toast.makeText(context, "Wow...I guess that is it ^^ " + goal, Toast.LENGTH_SHORT).show();
+                }
+
                 pushUps.SavePushups();
                 pushUps.SaveRecord();
+                pushUps.CheckGoal(numberinSession);
                 howMany.howManyCanYouDo(numberinSession);
+
+
                 closeFragment();
             }
         });

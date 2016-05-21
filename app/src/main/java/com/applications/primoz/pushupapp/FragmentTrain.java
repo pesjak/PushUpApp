@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 
@@ -77,7 +78,7 @@ public class FragmentTrain extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_train, container, false);
+        final View view = inflater.inflate(R.layout.fragment_train, container, false);
         ButterKnife.bind(this, view);
         context = getContext();
         activityMain = getActivity();
@@ -93,51 +94,60 @@ public class FragmentTrain extends Fragment {
         hashMapSets = new HashMap<>();
 
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        record = preferences.getInt("record", 0 );
+        record = preferences.getInt("record", 0);
         prvic = preferences.getBoolean("PRVIC", false);
 
 
-            sets = getArguments().getIntArray("sets");
-            String all = "";
-            tvSet = new TextView(context);
-            for (int i = 0; i < sets.length; i++) {
-                String element = String.valueOf(sets[i]);
-                hashMapSets.put(i, sets[i]);
-                if (i == 0) {
-                    tvSet.setText(sets[i] + "");
-                }
-                if (i != sets.length - 1) {
-                    all += element + " - ";
-                } else {
-                    all += element + "+";
-                }
+        sets = getArguments().getIntArray("sets");
+        String all = "";
+        tvSet = new TextView(context);
+        for (int i = 0; i < sets.length; i++) {
+            String element = String.valueOf(sets[i]);
+            hashMapSets.put(i, sets[i]);
+            if (i == 0) {
+                tvSet.setText(sets[i] + "");
             }
-            Log.d("FRAGMENT", all);
-            tvSet.setText(all);
-            tvSet.setTextSize(24);
-            tvSet.setTextColor(black);
-            tvSet.setLayoutParams(layoutParams);
-            MyApp.setFontCapture(context, tvSet);
-            llSets.addView(tvSet);
-            putRepinSet();
+            if (i != sets.length - 1) {
+                all += element + " - ";
+            } else {
+                all += element + "+";
+            }
+        }
+        Log.d("FRAGMENT", all);
+        tvSet.setText(all);
+        tvSet.setTextSize(24);
+        tvSet.setTextColor(black);
+        tvSet.setLayoutParams(layoutParams);
+        MyApp.setFontCapture(context, tvSet);
+        llSets.addView(tvSet);
+        putRepinSet();
 
-            number = hashMapSets.get(0);
-
-
+        number = hashMapSets.get(0);
 
 
         btnAbort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                howMany.howManyCanYouDo(number);
-                int prevscore = preferences.getInt("allpushups",0);
-                SharedPreferences.Editor editor = preferences.edit();
-                Log.d("ALL",numberinSession+"");
-                editor.putInt("allpushups", numberinSession+prevscore);
-                editor.apply();
-                if (timerRunning) {
-                    timerRunning = false;
-                    timer.cancel();
+
+                if(lastset) {
+                    howMany.howManyCanYouDo(number);
+                    int prevscore = preferences.getInt("allpushups", 0);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    Log.d("ALL", numberinSession + "");
+                    editor.putInt("allpushups", numberinSession + prevscore);
+                    editor.apply();
+                    if (timerRunning) {
+                        timerRunning = false;
+                        timer.cancel();
+                    }
+                    int goal = preferences.getInt("izbira", 25);
+                    if (number > goal) {
+                        Toast.makeText(context, "You achived your: " + goal + " pushups... ^^ ", Toast.LENGTH_SHORT).show();
+                    }
+                    pushUps.SavePushups();
+                    pushUps.SaveRecord();
+                    pushUps.ChangeSet();
+                    pushUps.CheckGoal(number);
                 }
                 pushUps.SavePushups();
                 pushUps.SaveRecord();
@@ -153,7 +163,7 @@ public class FragmentTrain extends Fragment {
                     timer.cancel();
                     timer.onFinish();
                 } else if (sets != null && sets.length > 1) {
-                    numberinSession+=1;
+                    numberinSession += 1;
                     number -= 1;
                     if (currentSet >= hashMapSets.size() - 1) {
                         if (number <= 0) {
@@ -178,7 +188,7 @@ public class FragmentTrain extends Fragment {
                     checkRecord();
 
                 } else {
-                    numberinSession+=1;
+                    numberinSession += 1;
                     number += 1;
                     checkRecord();
                     tvSet.setText(String.valueOf(number));
@@ -190,8 +200,8 @@ public class FragmentTrain extends Fragment {
         return view;
     }
 
-    private void checkRecord(){
-        if(record < number){
+    private void checkRecord() {
+        if (record < number) {
             record = number;
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
             SharedPreferences.Editor editor = preferences.edit();
@@ -209,7 +219,7 @@ public class FragmentTrain extends Fragment {
                 if (millisUntilFinished <= 6000) {
                     rlCenter.setClickable(false);
                     tvToGo.setText("Get Ready");
-                }else{
+                } else {
                     tvToGo.setText("REST NOW, press again to skip");
                 }
 
