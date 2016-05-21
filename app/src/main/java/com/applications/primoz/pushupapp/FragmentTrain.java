@@ -129,8 +129,7 @@ public class FragmentTrain extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if(lastset) {
-                    howMany.howManyCanYouDo(number);
+                if (lastset) {
                     int prevscore = preferences.getInt("allpushups", 0);
                     SharedPreferences.Editor editor = preferences.edit();
                     Log.d("ALL", numberinSession + "");
@@ -144,6 +143,7 @@ public class FragmentTrain extends Fragment {
                     if (number > goal) {
                         Toast.makeText(context, "You achived your: " + goal + " pushups... ^^ ", Toast.LENGTH_SHORT).show();
                     }
+                    //  howMany.howManyCanYouDo(number);
                     pushUps.SavePushups();
                     pushUps.SaveRecord();
                     pushUps.ChangeSet();
@@ -176,7 +176,7 @@ public class FragmentTrain extends Fragment {
                         }
 
                     } else if (number <= 0) {
-                        timeout(10);
+                        timeout(60);
                     }
 
                     tvCurrentToGo.setText(String.valueOf(number));
@@ -217,10 +217,14 @@ public class FragmentTrain extends Fragment {
                 timerRunning = true;
 
                 if (millisUntilFinished <= 6000) {
-                    rlCenter.setClickable(false);
-                    tvToGo.setText("Get Ready");
+                    if (tvToGo != null && rlCenter != null) {
+                        rlCenter.setClickable(false);
+                        tvToGo.setText("Get Ready");
+                    }
                 } else {
-                    tvToGo.setText("REST NOW, press again to skip");
+                    if (tvToGo != null) {
+                        tvToGo.setText("REST NOW, press again to skip");
+                    }
                 }
 
                 if (tvCurrentToGo != null) {

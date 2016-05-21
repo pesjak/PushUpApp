@@ -1,155 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-
-    android:id="@+id/CLLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context="com.applications.primoz.pushupapp.MainActivity">
+
+
+    <ImageView
+        android:id="@+id/iv_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/img_pushup" />
+
+    <View
+        android:id="@+id/viewBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorHalfBackgroundButton20" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:text="PUSH UP\nApp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="28sp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.applications.primoz.pushupapp.MainActivity">
-
-
-        <ImageView
-            android:id="@+id/iv_background"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:scaleType="fitXY"
-            android:src="@drawable/img_pushup" />
-
-        <View
-            android:id="@+id/viewBackground"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorHalfBackgroundButton20" />
-
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="24dp"
-            android:layout_marginTop="24dp"
-            android:gravity="center"
-            android:text="PUSH UP\nApp"
-            android:textColor="@color/colorPrimary"
-            android:textSize="28sp" />
+        android:layout_height="78dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:background="@color/colorBackgroundItem">
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="78dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:background="@color/colorBackgroundItem">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:gravity="end">
-
-                <TextView
-                    android:id="@+id/tvRecordName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:text="Record: "
-                    android:textColor="@color/colorSumPush"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/tvRecord"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/tvRecordName"
-                    android:layout_toEndOf="@+id/tvRecordName"
-                    android:text="34"
-                    android:textColor="@color/colorSumPush"
-                    android:textSize="36sp"
-                    android:textStyle="bold" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/relativeLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:padding="12dp">
-
-                <TextView
-                    android:id="@+id/tvAllPushUps"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:text="You did: "
-                    android:textColor="@color/colorRecord"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/tvAllPushUpsNumber"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:layout_margin="12dp"
-                    android:text="0"
-                    android:textColor="@color/colorRecord"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvPush"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tvAllPushUpsNumber"
-                    android:layout_centerHorizontal="true"
-                    android:text="Push Ups"
-                    android:textColor="@color/colorRecord"
-                    android:textSize="12sp" />
-            </RelativeLayout>
-
-        </RelativeLayout>
-
-        <include
-            android:id="@+id/includeSum"
-            layout="@layout/layout_sum_training"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="12dp" />
-
-
-        <Button
-            android:id="@+id/tvStart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/includeSum"
-            android:layout_alignTop="@+id/tvChangeGoal"
-            android:background="@color/colorBackgroundButton20"
-            android:padding="24dp"
-            android:text="BEGIN TRAINING"
-            android:textSize="24sp" />
-
-        <Button
-            android:id="@+id/tvChangeGoal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/includeSum"
-            android:layout_margin="8dp"
-            android:background="@color/colorBackgroundItem"
-            android:padding="8dp"
-            android:text="CHANGE GOAL"
-            android:textColor="@color/colorText" />
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:gravity="end">
 
+            <TextView
+                android:id="@+id/tvRecordName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="Record: "
+                android:textColor="@color/colorSumPush"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tvRecord"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/tvRecordName"
+                android:layout_toEndOf="@+id/tvRecordName"
+                android:text="34"
+                android:textColor="@color/colorSumPush"
+                android:textSize="36sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/tvAllPushUps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="You did: "
+                android:textColor="@color/colorRecord"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvAllPushUpsNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="12dp"
+                android:text="0"
+                android:textColor="@color/colorRecord"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvPush"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvAllPushUpsNumber"
+                android:layout_centerHorizontal="true"
+                android:text="Push Ups"
+                android:textColor="@color/colorRecord"
+                android:textSize="12sp" />
+        </RelativeLayout>
 
     </RelativeLayout>
-</android.support.design.widget.CoordinatorLayout>
+
+    <include
+        android:id="@+id/includeSum"
+        layout="@layout/layout_sum_training"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp" />
+
+
+    <Button
+        android:id="@+id/tvStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/includeSum"
+        android:layout_alignTop="@+id/tvChangeGoal"
+        android:background="@color/colorBackgroundButton20"
+        android:padding="24dp"
+        android:text="BEGIN TRAINING"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/tvChangeGoal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/includeSum"
+        android:layout_margin="8dp"
+        android:background="@color/colorBackgroundItem"
+        android:padding="8dp"
+        android:text="CHANGE GOAL"
+        android:textColor="@color/colorText" />
+
+
+</RelativeLayout>

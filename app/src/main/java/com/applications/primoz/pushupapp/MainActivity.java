@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.HashMap;
 
@@ -112,10 +116,8 @@ public class MainActivity extends AppCompatActivity implements GoalClicked, HowM
     int[] array16;
     int[] array17;
 
+    MaterialDialog materialDialog;
 
-    //TODO Preveri, če je prvič prižgal App
-    //TODO KO KONČA SET GA ZAMENJAJ Z NASLENDJIM, KI JE PRIMEREN TEJ STOPNJI
-    //TODO PO VSAKMU TEDNU IMA TEST, kjer lahko vidi če je dosegel tisto kvoto
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -154,10 +156,32 @@ public class MainActivity extends AppCompatActivity implements GoalClicked, HowM
         setRecord();
         setSetsPushups();
 
+        materialDialog = new MaterialDialog.Builder(this)
+                .title("Changing your goal?")
+                .content("Your can change your goal, but your sets will depend of your test that you will have to do again. Choose wisely.")
+                .positiveText("Yes I AM AWARE")
+                .negativeText("Cancel")
+                .onAny(new MaterialDialog.SingleButtonCallback(){
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        switch (which) {
+                            default:
+                                Toast.makeText(getApplicationContext(), "Lucky I warned you XD", Toast.LENGTH_SHORT).show();
+                                break;
+                            case POSITIVE:
+                                Toast.makeText(getApplicationContext(), "GL HF", Toast.LENGTH_SHORT).show();
+                                showSelectGoal();
+                                break;
+                            case NEGATIVE:
+                                Toast.makeText(getApplicationContext(), "Lucky I warned you XD", Toast.LENGTH_SHORT).show();
+                                break;
+                        }
+                    }
+                }).build();
         btnChangeGoal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showSelectGoal();
+                materialDialog.show();
             }
         });
 
@@ -533,17 +557,19 @@ public class MainActivity extends AppCompatActivity implements GoalClicked, HowM
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         tezavnost = preferences.getInt("tezavnost", -1);
         izbira = preferences.getInt("izbira", -1);
+        int teden = preferences.getInt("teden", -1);
         if (number > izbira) {
             if (tezavnost <= 2) {
                 Toast.makeText(MainActivity.this, "Changing your goal...", Toast.LENGTH_SHORT).show();
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putInt("tezavnost", tezavnost + 1);
-                Log.d("Izbira", izbira+"");
+                editor.putInt("teden", teden + 1);
+                Log.d("Izbira", izbira + "");
                 if (izbira == 25) {
-                    izbira=izbira+25;
+                    izbira = izbira + 25;
                     changeBackground(izbira);
-                }else if( izbira == 50){
-                    izbira=izbira+50;
+                } else if (izbira == 50) {
+                    izbira = izbira + 50;
                     changeBackground(izbira);
                 }
                 editor.putInt("izbira", izbira);
