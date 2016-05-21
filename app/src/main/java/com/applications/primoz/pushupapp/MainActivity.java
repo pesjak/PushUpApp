@@ -19,7 +19,6 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements GoalClicked, HowMany, PushUps {
     SharedPreferences preferences;
-    String record;
     @Bind(R.id.iv_background)
     ImageView ivBackground;
     @Bind(R.id.tvTitle)
@@ -68,7 +67,9 @@ public class MainActivity extends AppCompatActivity implements GoalClicked, HowM
     private int izbranabarva;
     String tezavnost;
     String izbira;
+
     private int allpushups;
+    private int record;
 
     //TODO Preveri, če je prvič prižgal App
     @Override
@@ -108,9 +109,18 @@ public class MainActivity extends AppCompatActivity implements GoalClicked, HowM
     private void setTotalPushUps(){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         allpushups = preferences.getInt("allpushups",0);
-        Log.d("ALL PUSHUPS",allpushups+"");
+     //   Log.d("ALL PUSHUPS",allpushups+"");
         if(tvAllPushUpsNumber != null){
             tvAllPushUpsNumber.setText(allpushups+"");
+        }
+    }
+
+    private void setRecord(){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        record = preferences.getInt("record",0);
+        Log.d("RECORD",record+"");
+        if(tvRecord != null){
+            tvRecord.setText(record+"");
         }
     }
 
@@ -118,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements GoalClicked, HowM
     protected void onRestart() {
         super.onRestart();
         setTotalPushUps();
+        setRecord();
     }
 
     private void startTraining() {
@@ -213,5 +224,10 @@ public class MainActivity extends AppCompatActivity implements GoalClicked, HowM
     @Override
     public void SavePushups() {
         setTotalPushUps();
+    }
+
+    @Override
+    public void SaveRecord() {
+        setRecord();
     }
 }

@@ -67,6 +67,7 @@ public class FragmentTrain extends Fragment {
     HowMany howMany;
     PushUps pushUps;
     CountDownTimer timer;
+    int record = 0;
 
     public FragmentTrain() {
         // Required empty public constructor
@@ -92,7 +93,7 @@ public class FragmentTrain extends Fragment {
         hashMapSets = new HashMap<>();
 
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-
+        record = preferences.getInt("record", 0 );
         prvic = preferences.getBoolean("PRVIC", false);
 
         if (prvic) {
@@ -159,13 +160,13 @@ public class FragmentTrain extends Fragment {
                 SharedPreferences.Editor editor = preferences.edit();
                 Log.d("ALL",numberinSession+"");
                 editor.putInt("allpushups", numberinSession+prevscore);
-                editor.commit();
-
+                editor.apply();
                 if (timerRunning) {
                     timerRunning = false;
                     timer.cancel();
                 }
                 pushUps.SavePushups();
+                pushUps.SaveRecord();
                 closeFragment();
             }
         });
@@ -199,9 +200,13 @@ public class FragmentTrain extends Fragment {
                         tvCurrentToGo.setText(number + "");
                         number += 2;
                     }
+
+                    checkRecord();
+
                 } else {
                     numberinSession+=1;
                     number += 1;
+                    checkRecord();
                     tvSet.setText(String.valueOf(number));
                     tvCurrentToGo.setText(String.valueOf(number));
                 }
@@ -209,6 +214,16 @@ public class FragmentTrain extends Fragment {
         });
 
         return view;
+    }
+
+    private void checkRecord(){
+        if(record < number){
+            record = number;
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putInt("record", record);
+            editor.apply();
+        }
     }
 
     private void timeout(int s) {
