@@ -12,6 +12,7 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -25,7 +26,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -76,6 +81,8 @@ public class FragmentTrain extends Fragment implements SensorEventListener {
     PushUps pushUps;
     CountDownTimer timer;
     int record = 0;
+    MaterialDialog materialDialog;
+
 
     public FragmentTrain() {
         // Required empty public constructor
@@ -139,8 +146,34 @@ public class FragmentTrain extends Fragment implements SensorEventListener {
         llSets.addView(tvSet);
         putRepinSet();
 
+        materialDialog = new MaterialDialog.Builder(context)
+                .title("Abort?")
+                .content("Are you sure you want to abort, you will lose your progress.")
+                .positiveText("Yes (cough*quiter*cough)")
+                .negativeText("NO! Lets do this")
+                .onAny(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        switch (which) {
+                            default:
+                                Toast.makeText(context, "You got this!", Toast.LENGTH_SHORT).show();
+                                break;
+                            case POSITIVE:
+                                Toast.makeText(context, "Aborted, and Didn't save your progress", Toast.LENGTH_SHORT).show();
+                                closeFragment();
+                                break;
+                            case NEGATIVE:
+                                Toast.makeText(context, "You got this!", Toast.LENGTH_SHORT).show();
+                                break;
+                        }
+                    }
+                }).build();
+
+
         number = hashMapSets.get(0);
 
+
+        //   timeout(5);
 
         btnAbort.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,25 +198,25 @@ public class FragmentTrain extends Fragment implements SensorEventListener {
                     pushUps.SaveRecord();
                     pushUps.ChangeSet();
                     pushUps.CheckGoal(number);
+                    closeFragment();
+                } else {
+                    materialDialog.show();
                 }
-                pushUps.SavePushups();
-                pushUps.SaveRecord();
-                closeFragment();
             }
         });
 
         rlCenter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              //  sklec = true;
+                //  sklec = true;
                 if (timerRunning) {
                     timer.cancel();
                     timer.onFinish();
                 }
                 //else {
-               //     pushupDo();
-               // }
-               // sklec = false;
+                //     pushupDo();
+                // }
+                // sklec = false;
             }
         });
 
@@ -201,16 +234,13 @@ public class FragmentTrain extends Fragment implements SensorEventListener {
     }
 
     private void timeout(int s) {
-        timer = new CountDownTimer(s * 1005, 1000) {
+        timer = new CountDownTimer(s * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 timerRunning = true;
 
                 if (millisUntilFinished <= 6000) {
-                    if (tvToGo != null && rlCenter != null) {
-                        rlCenter.setClickable(false);
-                        tvToGo.setText("Get Ready");
-                    }
+                    getReady();
                 } else {
                     if (tvToGo != null) {
                         tvToGo.setText("REST NOW, press again to skip");
@@ -218,15 +248,22 @@ public class FragmentTrain extends Fragment implements SensorEventListener {
                 }
 
                 if (tvCurrentToGo != null) {
-                    tvCurrentToGo.setText(millisUntilFinished / 1000 + "");
+                    String ura = String.format("%01d:%02d",
+                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)),
+                            TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished));
+                    tvCurrentToGo.setText(ura);
                 }
             }
 
             @Override
             public void onFinish() {
                 timerRunning = false;
-                tvCurrentToGo.setText("" + 0);
-                rlCenter.setClickable(true);
+                if (tvCurrentToGo != null) {
+                    tvCurrentToGo.setText("" + 0);
+                }
+                if (rlCenter != null) {
+                    rlCenter.setClickable(true);
+                }
                 currentSet += 1;
                 putRepinSet();
                 if (tvToGo != null) {
@@ -236,6 +273,13 @@ public class FragmentTrain extends Fragment implements SensorEventListener {
         };
 
         timer.start();
+    }
+
+    private void getReady() {
+        if (tvToGo != null && rlCenter != null) {
+            rlCenter.setClickable(false);
+            tvToGo.setText("Get Ready");
+        }
     }
 
     private void putRepinSet() {
@@ -261,6 +305,12 @@ public class FragmentTrain extends Fragment implements SensorEventListener {
         ft.commit();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mSensorManager.unregisterListener(this);
+
+    }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
@@ -292,7 +342,9 @@ public class FragmentTrain extends Fragment implements SensorEventListener {
                 tvCurrentToGo.setText(String.valueOf(number));
             }
             if (lastset) {
-                tvCurrentToGo.setText(number + "");
+                if (tvCurrentToGo != null) {
+                    tvCurrentToGo.setText(number + "");
+                }
                 number += 2;
             }
 

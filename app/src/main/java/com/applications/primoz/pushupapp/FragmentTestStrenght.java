@@ -105,7 +105,9 @@ public class FragmentTestStrenght extends Fragment implements SensorEventListene
         record = preferences.getInt("record", 0);
         //Log.d("Record", record + "");
         goal = preferences.getInt("izbira", 25);
-        tvTestStrenghtSet.setText("YOUR RECORD: " + String.valueOf(record));
+        if (tvTestStrenghtSet != null) {
+            tvTestStrenghtSet.setText("YOUR RECORD: " + String.valueOf(record));
+        }
         prvic = preferences.getBoolean("PRVIC", false);
 
 
@@ -120,11 +122,11 @@ public class FragmentTestStrenght extends Fragment implements SensorEventListene
                 if (numberinSession > goal) {
                     Toast.makeText(context, "Wow...I guess that is it ^^ " + goal, Toast.LENGTH_SHORT).show();
                 }
-
                 pushUps.SavePushups();
                 pushUps.SaveRecord();
                 pushUps.CheckGoal(numberinSession);
                 howMany.howManyCanYouDo(numberinSession);
+
 
 
                 closeFragment();
@@ -137,8 +139,6 @@ public class FragmentTestStrenght extends Fragment implements SensorEventListene
                 //  sklec = true;
                 //  pushupDo();
                 //  sklec = false;
-
-
             }
         });
         return view;
@@ -152,7 +152,9 @@ public class FragmentTestStrenght extends Fragment implements SensorEventListene
             SharedPreferences.Editor editor = preferences.edit();
             editor.putInt("record", record);
             editor.apply();
-            tvTestStrenghtSet.setText("YOUR RECORD: " + String.valueOf(record));
+            if (tvTestStrenghtSet != null) {
+                tvTestStrenghtSet.setText("YOUR RECORD: " + String.valueOf(record));
+            }
         }
 
     }
@@ -173,10 +175,16 @@ public class FragmentTestStrenght extends Fragment implements SensorEventListene
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mSensorManager.unregisterListener(this);
+    }
+
+    @Override
     public void onSensorChanged(SensorEvent event) {
         Log.d("EVENT", event.values[0] + "");
 
-        if (event.values[0] < 1.0 && !sklec) {
+        if (event.values[0] <= 1.0) {
             pushupDo();
         }
     }
@@ -185,10 +193,11 @@ public class FragmentTestStrenght extends Fragment implements SensorEventListene
         numberinSession += 1;
         Log.d("Number", numberinSession + "");
         if (record <= numberinSession) {
-            tvTestStrenghtSet.setText("YOUR RECORD: " + record);
+            if (tvTestStrenghtSet != null) {
+                tvTestStrenghtSet.setText("YOUR RECORD: " + record);
+            }
         }
         if (tvCurrentToGo != null) {
-
             tvCurrentToGo.setText(String.valueOf(numberinSession));
         }
         checkRecord();

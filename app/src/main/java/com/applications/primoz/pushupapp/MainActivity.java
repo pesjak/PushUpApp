@@ -139,14 +139,11 @@ public class MainActivity extends AppCompatActivity implements GoalClicked, HowM
         firstTimer = preferences.getBoolean("firstTimer", true);
 
         if (firstTimer) {
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean("firstTimer", false);
-            editor.apply();
             firstTimer = false;
             showSelectGoal();
         } else {
-            izbira = preferences.getInt("izbira", -1);
-            tezavnost = preferences.getInt("tezavnost", -1);
+            izbira = preferences.getInt("izbira", 0);
+            tezavnost = preferences.getInt("tezavnost", 0);
             Log.d("Izbira", izbira + "");
             Log.d("Tezavnost", tezavnost + "");
             changeBackground(izbira);
@@ -163,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements GoalClicked, HowM
                 .positiveColor(izbranabarva)
                 .negativeColor(izbranabarva)
                 .negativeText("Cancel")
-                .onAny(new MaterialDialog.SingleButtonCallback(){
+                .onAny(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         switch (which) {
@@ -375,7 +372,7 @@ public class MainActivity extends AppCompatActivity implements GoalClicked, HowM
     private void setRecord() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         record = preferences.getInt("record", 0);
-        //   Log.d("RECORD", record + "");
+        Log.d("RECORD", record + "");
         if (tvRecord != null) {
             tvRecord.setText(record + "");
         }
@@ -519,24 +516,34 @@ public class MainActivity extends AppCompatActivity implements GoalClicked, HowM
 
         hashTeden = hashDif.get(difficulty);
         hashDan = hashTeden.get(teden);
-        arraySets = hashDan.get(dan);
 
-
-        String set = "";
-        int sum = 0;
-        for (int i = 0; i < arraySets.length; i++) {
-            sum += arraySets[i];
-            String element = String.valueOf(arraySets[i]);
-            if (i != arraySets.length - 1) {
-                set += element + " - ";
-            } else {
-                set += element + "+";
-            }
+        try {
+            arraySets = hashDan.get(dan);
+        }catch(Exception ex){
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putInt("tezavnost", 2);
+            editor.putInt("teden", 0);
+            editor.putInt("dan", 0);
 
         }
-        Log.d("STRING", set);
-        tvSetsNumbers.setText(set);
-        tvTotalNumber.setText(sum + " PUSH UPS");
+
+        if (arraySets != null && arraySets.length >= 0) {
+            String set = "";
+            int sum = 0;
+            for (int i = 0; i < arraySets.length; i++) {
+                sum += arraySets[i];
+                String element = String.valueOf(arraySets[i]);
+                if (i != arraySets.length - 1) {
+                    set += element + " - ";
+                } else {
+                    set += element + "+";
+                }
+
+            }
+            Log.d("STRING", set);
+            tvSetsNumbers.setText(set);
+            tvTotalNumber.setText(sum + " PUSH UPS");
+        }
     }
 
     @Override
