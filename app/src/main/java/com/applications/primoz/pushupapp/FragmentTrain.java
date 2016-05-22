@@ -175,14 +175,15 @@ public class FragmentTrain extends Fragment implements SensorEventListener {
         rlCenter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sklec = true;
+              //  sklec = true;
                 if (timerRunning) {
                     timer.cancel();
                     timer.onFinish();
-                } else {
-                    pushupDo();
                 }
-                sklec = false;
+                //else {
+               //     pushupDo();
+               // }
+               // sklec = false;
             }
         });
 

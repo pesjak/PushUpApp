@@ -134,9 +134,9 @@ public class FragmentTestStrenght extends Fragment implements SensorEventListene
         rlCenter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sklec = true;
-                pushupDo();
-                sklec = false;
+                //  sklec = true;
+                //  pushupDo();
+                //  sklec = false;
 
 
             }
@@ -187,7 +187,10 @@ public class FragmentTestStrenght extends Fragment implements SensorEventListene
         if (record <= numberinSession) {
             tvTestStrenghtSet.setText("YOUR RECORD: " + record);
         }
-        tvCurrentToGo.setText(String.valueOf(numberinSession));
+        if (tvCurrentToGo != null) {
+
+            tvCurrentToGo.setText(String.valueOf(numberinSession));
+        }
         checkRecord();
 
     }
