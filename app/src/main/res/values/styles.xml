@@ -10,4 +10,6 @@
         <item name="android:textColor">@color/colorText</item>
     </style>
 
+
+
 </resources>
